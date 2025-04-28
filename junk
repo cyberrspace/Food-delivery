@@ -1,0 +1,143 @@
+import React, {useState, useEffect, useRef} from 'react'
+
+
+const Trusted = () => {
+   const [animationState, setAnimationState] = useState('hidden');
+   const [currentSlide, setCurrentSlide] = useState(0);
+   const headingRef =useRef(null);
+   const totalSlides = 5;
+
+   useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setAnimationState('appearing');
+        
+       setTimeout(() => {
+         setAnimationState('settled')
+       }, 3000);
+
+        observer.unobserve(headingRef.current);
+      }
+    },
+    {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    }
+  );
+
+  if (headingRef.current) {
+    observer.observe(headingRef.current);
+  }
+
+  return () => {
+    if (headingRef.current) {
+      observer.unobserve(headingRef.current);
+    }
+  };
+}, []);
+
+useEffect(() => {
+
+
+const slideInterval = setInterval (() => {
+
+  setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides);
+}, 2000);
+
+return () => 
+  clearInterval(slideInterval);
+
+
+}, []);
+
+
+const getHeadingClass = () => {
+   const baseClasses = 'font-sans text-4xl font-semibold transition-all duration-1000 transform'
+
+   switch (animationState) {
+    case 'hidden':
+      return `${baseClasses} translate-y-20 opacity-0 `;
+      case 'appearing':
+        return `${baseClasses} translate-y-6 opacity-100`;
+        case 'settled':
+          return `${baseClasses} translate-y-0 opacity-100`;
+          default:
+            return baseClasses;
+
+
+   }
+
+  
+};
+
+  const imageList = [
+    '/images/coffee.png',
+    '/images/foodies.png',
+    '/images/goodfood.png',
+    '/images/restaurantt.png',
+    '/images/burgerss.png'
+  ];
+
+  return (
+    <div className='bg-[#f4f4f4] py-10 space-y-10'>
+      <div className='flex items-center justify-center  ref={headingRef}' >
+
+        <h1  className={getHeadingClass()}
+        >Trusted by 2.5k+ restaurant</h1>
+
+      </div>
+
+      <div className='relative overflow-hidden'> 
+        <div className='transition-all duration-1000 ease-in-out'>
+          
+          <div className='flex flex-row items-center justify-center w-ful space-x-4'
+          style={{
+            transform: `translateX(${currentSlide * -100}% )`,
+            transition: 'transform 1s ease-in-out'
+          }}
+          
+          >
+            <div className='flex flex-row items-center justify-center min-w-full space-x-4'>
+              {imageList[0].map((src, index) => (
+                <img 
+                key={`slide1-${index}`}
+                src={src}
+                alt={`partner-${index}`}
+                className='transition-all duration-500 transform'
+                />
+              ))}
+
+            </div>
+             
+              </div>
+           </div>
+          </div>
+
+       <div className=' flex flex-row items-center justify-center '>
+        {[...Array(totalSlides)].map((_, index) => (
+          <svg
+            key={index}
+            width="30"
+            height="30"
+            className="transition-all"
+          >
+            <circle
+              cx="10"
+              cy="10"
+              r="10"
+              stroke="#FF7043"
+              strokeWidth="2"
+              fill={currentSlide === index ? "#FF7043" : "white"}
+              className="transition-all duration-300"
+            />
+          </svg>
+        ))}
+        
+      </div>
+     
+    </div>
+   
+  )
+}
+
+export default Trusted
