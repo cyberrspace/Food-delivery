@@ -2,7 +2,7 @@ import React from 'react'
 
 const EasySteps = () => {
   return (
-    <section className="w-full bg-gradient-to-r from-[#000000] via-red-950 to-[#000000] rounded-3xl py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-8 lg:px-12 mx-4 my-12 sm:my-16 md:my-20 lg:my-24">
+    <section className=" bg-gradient-to-r from-[#000000] via-red-950 to-[#000000] rounded-3xl py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-8 lg:px-12 mx-4 my-12 sm:my-16 md:my-20 lg:my-24">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="text-center space-y-4 sm:space-y-6 mb-12 sm:mb-16 md:mb-20">

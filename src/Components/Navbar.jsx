@@ -1,10 +1,10 @@
 import { useState } from "react";
+import HeroSection from "./HeroSection";
 
 const Navbar = () => {
-  const [homeList, setHomeList] = useState("");
-  const [pageList, setPageList] = useState('');
-  const [isFilled, setIsFilled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isHomeDropdownOpen, setIsHomeDropdownOpen] = useState(false);
+  const [isPagesDropdownOpen, setIsPagesDropdownOpen] = useState(false);
 
   const home = [
     { id: 1, list: "Default 1" },
@@ -27,7 +27,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="bg-cover bg-no-repeat bg-right-top min-h-screen relative z-10" style={{
+    <div className="bg-cover bg-no-repeat bg-right-top min-h-screen relative sm:flex-col z-30" style={{
       backgroundImage: "url('images/hero.png')",
       backgroundSize: 'clamp(300px, 50vw, 580px)',
     }}>
@@ -38,7 +38,7 @@ const Navbar = () => {
             {/* Logo */}
             <a href="/" className="z-50">
               <img
-                src="https://kalanidhithemes.com/live-preview/landing-page/appiq/all-demo/multipage/01-food-delivery-static-hero/images/logo_white.webp"
+                src="https://kalanidhithemes.com/live-preview/landing-page/appiq/all-demo/multipage/01-food-delivery-static-hero/images/logo.webp"
                 alt="food-logo"
                 className="h-8 sm:h-10 w-auto"
               />
@@ -60,33 +60,67 @@ const Navbar = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
-              <select
-                className="bg-transparent border border-gray-300 rounded px-3 py-1  hover:border-gray-400 focus:outline-none focus:ring-1 focus:ring-red-500 transition-all"
-                value={homeList}
-                onChange={(e) => setHomeList(e.target.value)}
+              {/* Home Dropdown */}
+              <div
+                className="relative group"
+                onMouseEnter={() => setIsHomeDropdownOpen(true)}
+                onMouseLeave={() => setIsHomeDropdownOpen(false)}
               >
-                <option value="" className="text-gray-800">Home</option>
-                {home.map(homes => (
-                  <option key={homes.id} value={homes.id} className="text-gray-800">{homes.list}</option>
-                ))}
-              </select>
+                <button className="flex items-center hover:text-red-500 transition-colors">
+                  Home
+                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
 
-              <a href="#features" className=" hover:text-red-500 transition-colors">About us</a>
+                {isHomeDropdownOpen && (
+                  <div className="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 z-50">
+                    {home.map(homes => (
+                      <a
+                        key={homes.id}
+                        href="#"
+                        className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                      >
+                        {homes.list}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
 
-              <select
-                className="bg-transparent border border-gray-300 rounded px-3 py-1  hover:border-gray-400 focus:outline-none focus:ring-1 focus:ring-red-500 transition-all"
-                value={pageList}
-                onChange={(e) => setPageList(e.target.value)}
+              <a href="#features" className="hover:text-red-500 transition-colors">About us</a>
+
+              {/* Pages Dropdown */}
+              <div
+                className="relative group"
+                onMouseEnter={() => setIsPagesDropdownOpen(true)}
+                onMouseLeave={() => setIsPagesDropdownOpen(false)}
               >
-                <option value="" className="text-gray-800">Pages</option>
-                {page.map(pages => (
-                  <option key={pages.id} value={pages.id} className="text-gray-800">{pages.item}</option>
-                ))}
-              </select>
+                <button className="flex items-center hover:text-red-500 transition-colors">
+                  Pages
+                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
 
-              <a href="#testimonials" className="text-white hover:text-red-500 transition-colors">Reviews</a>
-              <a href="#blog" className="text-white hover:text-red-500 transition-colors">Blog</a>
-              <a href="#contact" className="text-white hover:text-red-500 transition-colors">Contact</a>
+                {isPagesDropdownOpen && (
+                  <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                    {page.map(pages => (
+                      <a
+                        key={pages.id}
+                        href="#"
+                        className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                      >
+                        {pages.item}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <a href="#testimonials" className="hover:text-red-500 transition-colors">Reviews</a>
+              <a href="#blog" className="hover:text-red-500 transition-colors">Blog</a>
+              <a href="#contact" className="hover:text-red-500 transition-colors">Contact</a>
 
               <a href="#trial">
                 <button className="relative overflow-hidden text-sm sm:text-base py-2 px-4 sm:py-2 sm:px-6 text-white rounded-md z-10 border-2 border-transparent transition-all duration-500 ease-in-out before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-[#fb5b29] before:rounded-md before:transition-all before:duration-500 before:ease-in-out before:z-[-1] hover:text-black hover:before:translate-x-full hover:bg-white hover:border-[#fb5b29]">
@@ -98,119 +132,80 @@ const Navbar = () => {
 
           {/* Mobile Navigation */}
           {isMobileMenuOpen && (
-            <div className="md:hidden absolute top-0 left-0 w-full h-screen bg-black bg-opacity-90 flex flex-col items-center justify-center space-y-6 pt-20">
-              <select
-                className="w-3/4 bg-transparent border border-gray-300 rounded px-3 py-2 "
-                value={homeList}
-                onChange={(e) => setHomeList(e.target.value)}
-              >
-                <option value="">Home</option>
-                {home.map(homes => (
-                  <option key={homes.id} value={homes.id}>{homes.list}</option>
-                ))}
-              </select>
+            <div className="md:hidden fixed top-0 left-0   bg-white border-r border-gray-200 shadow-lg z-40 pt-20 px-6">
+              <div className="flex flex-col space-y-4">
+                {/* Mobile Home Dropdown */}
+                <div className="border-b border-gray-200 pb-4">
+                  <button
+                    className="w-full text-left py-2 text-gray-800 hover:text-red-500 flex justify-between items-center"
+                    onClick={() => setIsHomeDropdownOpen(!isHomeDropdownOpen)}
+                  >
+                    <span>Home</span>
+                    <svg className={`w-4 h-4 transition-transform ${isHomeDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {isHomeDropdownOpen && (
+                    <div className="mt-2 ml-4 space-y-2">
+                      {home.map(homes => (
+                        <a
+                          key={homes.id}
+                          href="#"
+                          className="block py-1.5 px-3 text-gray-600 hover:text-red-500 hover:bg-gray-50 rounded"
+                        >
+                          {homes.list}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
 
-              <a href="#features" className=" hover:text-red-500 text-xl">About us</a>
+                <a href="#features" className="py-2 text-gray-800 hover:text-red-500 border-b border-gray-200">About us</a>
 
-              <select
-                className="w-3/4 bg-transparent border border-gray-300 rounded px-3 py-2"
-                value={pageList}
-                onChange={(e) => setPageList(e.target.value)}
-              >
-                <option value="">Pages</option>
-                {page.map(pages => (
-                  <option key={pages.id} value={pages.id}>{pages.item}</option>
-                ))}
-              </select>
+                {/* Mobile Pages Dropdown */}
+                <div className="border-b border-gray-200 pb-4">
+                  <button
+                    className="w-full text-left py-2 text-gray-800 hover:text-red-500 flex justify-between items-center"
+                    onClick={() => setIsPagesDropdownOpen(!isPagesDropdownOpen)}
+                  >
+                    <span>Pages</span>
+                    <svg className={`w-4 h-4 transition-transform ${isPagesDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {isPagesDropdownOpen && (
+                    <div className="mt-2 ml-4 space-y-2">
+                      {page.map(pages => (
+                        <a
+                          key={pages.id}
+                          href="#"
+                          className="block py-1.5 px-3 text-gray-600 hover:text-red-500 hover:bg-gray-50 rounded"
+                        >
+                          {pages.item}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
 
-              <a href="#testimonials" className=" hover:text-red-500 text-xl">Reviews</a>
-              <a href="#blog" className=" hover:text-red-500 text-xl">Blog</a>
-              <a href="#contact" className=" hover:text-red-500 text-xl">Contact</a>
+                <a href="#testimonials" className="py-2 text-gray-800 hover:text-red-500 border-b border-gray-200">Reviews</a>
+                <a href="#blog" className="py-2 text-gray-800 hover:text-red-500 border-b border-gray-200">Blog</a>
+                <a href="#contact" className="py-2 text-gray-800 hover:text-red-500 border-b border-gray-200">Contact</a>
 
-              <a href="#trial" className="mt-4">
-                <button className="relative overflow-hidden text-base py-3 px-6  rounded-md z-10 border-2 border-transparent transition-all duration-500 ease-in-out before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-[#fb5b29] before:rounded-md before:transition-all before:duration-500 before:ease-in-out before:z-[-1] hover:text-black hover:before:translate-x-full hover:bg-white hover:border-[#fb5b29]">
-                  7 Days Free Trial
-                </button>
-              </a>
+                <div className="pt-4">
+                  <a href="#trial">
+                    <button className="w-full relative overflow-hidden text-base py-3 px-6 rounded-md z-10 border-2 border-[#fb5b29] transition-all duration-500 ease-in-out before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-[#fb5b29] before:rounded-md before:transition-all before:duration-500 before:ease-in-out before:z-[-1] hover:text-white hover:before:translate-x-0 hover:before:opacity-100">
+                      7 Days Free Trial
+                    </button>
+                  </a>
+                </div>
+              </div>
             </div>
           )}
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 container mx-auto">
-        <div className="flex flex-col lg:flex-row items-center justify-between">
-          {/* Hero Content */}
-          <div className="lg:w-1/2 text-center lg:text-left mb-12 lg:mb-0">
-            <h3 className="text-lg sm:text-xl text-orange-500 mb-2">Fastest delivery</h3>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold  leading-tight mb-6">
-              Fast & best <span className="text-orange-600">food delivery</span> services in your town
-            </h1>
-
-            <p className="text-lg sm:text-xl  mb-8 max-w-2xl mx-auto lg:mx-0">
-              We commit to delivering your food to you within 30 minutes. If we would fail, we will give the food free.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
-              <div className="flex -space-x-4">
-                {[1, 2, 3].map((item) => (
-                  <img
-                    key={item}
-                    src={`/images/banavt${item}.png`}
-                    alt={`Avatar ${item}`}
-                    className="w-12 h-12 rounded-full border-2 border-white hover:-translate-x-1 transition-transform"
-                  />
-                ))}
-              </div>
-              <div className="text-left">
-                <p className="font-bold text-lg ">25k+ Active Users</p>
-                <div className="flex items-center space-x-2">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    onMouseEnter={() => setIsFilled(true)}
-                    onMouseLeave={() => setIsFilled(false)}
-                    className="cursor-pointer transition-colors"
-                  >
-                    <path
-                      fill={isFilled ? '#fb5b29' : '#ffd700'}
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                  <span className="-200">4.5/5.0 (20k+ Reviews)</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-6">
-              <a href="#" className="bg-[#fb5b29] hover:bg-black transition-colors duration-300 rounded-2xl p-3 flex justify-center items-center max-w-xs mx-auto lg:mx-0">
-                <img
-                  src="https://kalanidhithemes.com/live-preview/landing-page/appiq/all-demo/multipage/01-food-delivery-static-hero/images/googleplay.webp"
-                  alt="Google Play"
-                  className="h-10"
-                />
-              </a>
-              <a href="#" className="bg-[#fb5b29] hover:bg-black transition-colors duration-300 rounded-2xl p-3 flex justify-center items-center max-w-xs mx-auto lg:mx-0">
-                <img
-                  src="https://kalanidhithemes.com/live-preview/landing-page/appiq/all-demo/multipage/01-food-delivery-static-hero/images/appstorebtn.webp"
-                  alt="App Store"
-                  className="h-10"
-                />
-              </a>
-            </div>
-          </div>
-
-          {/* Hero Image */}
-          <div className="lg:w-1/2 flex justify-center">
-            <img
-              src="/images/heros.png"
-              alt="Food delivery"
-              className="w-full max-w-md lg:max-w-lg xl:max-w-xl object-contain"
-            />
-          </div>
-        </div>
-      </section>
+      <HeroSection />
     </div>
   );
 };

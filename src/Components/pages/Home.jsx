@@ -13,12 +13,14 @@ import YummyDishes from '../YummyDishes';
 
 const Home = () => {
   return (
-    <div className="bg-[#f4f4f4] flex flex-col min-h-screen">
+    // <div className="bg-[#f4f4f4] flex flex-col min-h-screen">
+      <div className="">
       {/* Navbar stays fixed or sticky as needed */}
       <Navbar />
 
       {/* Wrap sections in a responsive container */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+      {/* <main className="mx-auto px-4 sm:px-6 lg:px-8 space-y-20"> */}
+        <main className="">
 
         <Features />
         <Trusted />

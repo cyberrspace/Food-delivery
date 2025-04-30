@@ -3,7 +3,7 @@ import React from 'react'
 const RegisterRestaurant = () => {
   return (
     <section
-      className="relative bg-cover bg-center bg-no-repeat w-full min-h-[400px] sm:min-h-[500px] md:min-h-[640px] my-12 sm:my-16 md:my-20 mx-4 sm:mx-6 md:mx-8 rounded-xl overflow-hidden"
+      className="relative bg-cover bg-center bg-no-repeat  min-h-[400px] sm:min-h-[500px] md:min-h-[640px] my-12 sm:my-16 md:my-20 mx-4 sm:mx-6 md:mx-8 rounded-xl "
       style={{
         backgroundImage: 'url(https://kalanidhithemes.com/live-preview/landing-page/appiq/all-demo/multipage/01-food-delivery-static-hero/images/download_food3.webp)',
         backgroundAttachment: 'fixed'

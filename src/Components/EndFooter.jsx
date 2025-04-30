@@ -4,7 +4,8 @@ const EndFooter = () => {
   return (
     <section >
       {/* Main Content - Responsive Grid */}
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-16 md:pt-24 lg:pt-32 px-4 sm:px-8 md:px-12 lg:px-16'>
+      {/* <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-16 md:pt-24 lg:pt-32 px-4 sm:px-8 sm:pt-10 md:px-12 lg:px-16'> */}
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-16 sm:pt-24 md:pt-24 lg:pt-32 px-4 sm:px-8 md:px-12 lg:px-16'>
 
         {/* Logo and Description Section */}
         <div className='flex flex-col items-center md:items-start'>
@@ -12,7 +13,7 @@ const EndFooter = () => {
             <img
               src="https://kalanidhithemes.com/live-preview/landing-page/appiq/all-demo/multipage/01-food-delivery-static-hero/images/logo_white.webp"
               alt="Company Logo"
-              className='w-40 md:w-48 lg:w-56'
+              className='w-40 md:w-48 lg:w-56  ' 
             />
           </div>
           <p className='text-white text-center md:text-left mb-6 md:mb-8 lg:mb-10 text-sm sm:text-base'>

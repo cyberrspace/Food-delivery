@@ -140,6 +140,7 @@ const ForCustomers = () => {
               alt="Customer app interface"
               className='w-full max-w-md lg:max-w-none object-contain'
             />
+            
           </motion.div>
         </div>
       </div>
